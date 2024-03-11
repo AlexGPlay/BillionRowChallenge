@@ -1,0 +1,6 @@
+*.out
+*.txt
+test_2*/*
+test_3*/*
+a.out*/*
+.vscode
