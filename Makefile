@@ -10,3 +10,7 @@ build-mmap: mmap.c
 	gcc -O3 mmap.c -o mmap.out
 time-mmap: build-mmap
 	time ./mmap.out
+build-mmap-multi: mmap_multi.c 
+	gcc -O3 mmap_multi.c -o mmap_multi.out
+time-mmap-multi: build-mmap-multi
+	time ./mmap_multi.out
