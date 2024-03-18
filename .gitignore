@@ -4,3 +4,6 @@ test_2*/*
 test_3*/*
 a.out*/*
 .vscode
+
+.DS_Store
+*.dsYM
