@@ -10,6 +10,10 @@ build-buffering: buffering.c
 	gcc -O3 buffering.c -o buffering.out
 time-buffering: build-buffering
 	time ./buffering.out
+build-buffering-multi: buffering_multi.c 
+	gcc -O3 buffering_multi.c -o buffering_multi.out
+time-buffering-multi: build-buffering-multi
+	time ./buffering_multi.out
 build-mmap: mmap.c 
 	gcc -O3 mmap.c -o mmap.out
 time-mmap: build-mmap
