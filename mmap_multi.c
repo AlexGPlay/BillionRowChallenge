@@ -11,7 +11,7 @@
 #include "./utils/multithreading.c"
 
 #define INITIAL_MEASUREMENTS 1500
-#define NTHREADS 2
+#define NTHREADS 16
 #define FILE_NAME "measurements.txt"
 
 void processChunk(void* params){
@@ -70,7 +70,7 @@ int main(){
 
   pthread_t threads[NTHREADS];
 
-  int chunkSize = statbuf.st_size / NTHREADS;
+  size_t chunkSize = statbuf.st_size / NTHREADS;
   size_t current = 0;
 
   struct ThreadParams params[NTHREADS];

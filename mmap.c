@@ -9,6 +9,7 @@
 #include "./utils/data.c"
 
 #define INITIAL_MEASUREMENTS 1500
+#define DEBUG_LINES
 
 int main(){
   int fd;
@@ -37,32 +38,14 @@ int main(){
     int bytes = nextLine - line;
 
     if(nextLine == NULL){
-      char *separator = strchr(line, ';');
-      if(separator == NULL){
-        break;
-      }
-
-      int bytesUntilSeparator = separator - line;
-      char *name = (char*)malloc(bytesUntilSeparator + 1);
-      strncpy(name, line, bytesUntilSeparator);
-
-      char *value = separator + 1;
-      float fvalue = atof(value);
-
-      addMeasurement(name, fvalue, &measurements, &currentSize, &insertedSize, &sortedMeasurementsNames);
+      struct StationData parsedLine = parseLine(line);
+      addMeasurement(parsedLine.name, parsedLine.temperature, &measurements, &currentSize, &insertedSize, &sortedMeasurementsNames);
       break;
     }
 
-    char* lineCopy = (char*)malloc(bytes + 1);
-    strncpy(lineCopy, line, bytes);
-    lineCopy[bytes] = '\0';
-    
-    char *name = strtok(lineCopy, ";");
+    struct StationData parsedLine = parseLine(line);
 
-    char *value = strtok(NULL, ";");
-    float fvalue = atof(value);
-
-    addMeasurement(name, fvalue, &measurements, &currentSize, &insertedSize, &sortedMeasurementsNames);
+    addMeasurement(parsedLine.name, parsedLine.temperature, &measurements, &currentSize, &insertedSize, &sortedMeasurementsNames);
     #ifdef DEBUG_LINES
     lines++;
     if(lines % 1000000 == 0){
@@ -70,14 +53,14 @@ int main(){
     }
     #endif
 
-    line = nextLine + 1;
+    line = parsedLine.nextLine + 1;
   }
 
 
   munmap(data, statbuf.st_size);
   close(fd);
 
-  printMeasurements(sortedMeasurementsNames, measurements, insertedSize);
+  printMeasurements(sortedMeasurementsNames, measurements, currentSize);
 
   return 0;
 }

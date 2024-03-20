@@ -29,32 +29,39 @@ void addMeasurement(char* name, float value, struct NamedNode **measurementsPtr,
   }
 }
 
+int parseFloat(char* number, float* value){
+  int mod = 1;
+  if(number[0] == '-'){
+    mod = -1;
+    number++;
+  }
+
+  if(number[1] == '.'){
+    *value = ((number[0] - '0') + (number[2] - '0') / 10.0) * mod;
+    return 4;
+  }
+
+  *value = (((number[0] - '0') * 10) + (number[1] - '0') + (number[3] - '0') / 10.0) * mod;
+  return 5;
+}
+
 struct StationData parseLine(char* line){
   struct StationData data;
 
-  char* nextLine = strchr(line, '\n');
-  size_t bytes = 0;
-  if(nextLine){
-    bytes = nextLine - line;
-  } else {
-    bytes = strlen(line);
+  int i = 0;
+  while(line[i] != ';'){
+    i++;
   }
 
+  char* name = malloc(i + 1);
+  strncpy(name, line, i);
+  name[i] = '\0';
 
-  char* lineCopy = (char*)malloc(bytes + 1);
-  strncpy(lineCopy, line, bytes);
-  lineCopy[bytes] = '\0';
-
-  char *strtokPtr;
-  char *name = strtok_r(lineCopy, ";", &strtokPtr);
-
-  char *value = strtok_r(NULL, ";", &strtokPtr);
-  float fvalue = atof(value);
-
+  float temperature;
+  data.nextLine = line + i + parseFloat(line + i + 1, &temperature);
   data.name = name;
-  data.temperature = fvalue;
-  data.nextLine = nextLine;
-  data.processedBytes = bytes;
+  data.temperature = temperature;
+  data.processedBytes = data.nextLine - line;
 
   return data;
 }
