@@ -9,11 +9,11 @@
 #include "./utils/data.c"
 #include "./utils/multithreading.c"
 
-#define BUFFER_SIZE 5*1024*1024
+#define BUFFER_SIZE 2*1024*1024
 #define INITIAL_MEASUREMENTS 1500
 
 #define FILE_NAME "measurements.txt"
-#define NTHREADS 8
+#define NTHREADS 16
 
 #define DEBUG_LINES
 

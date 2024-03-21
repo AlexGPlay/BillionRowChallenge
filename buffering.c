@@ -4,7 +4,7 @@
 
 #include "./utils/data.c"
 
-#define BUFFER_SIZE 5*1024*1024
+#define BUFFER_SIZE 2*1024*1024
 #define INITIAL_MEASUREMENTS 1500
 
 #define DEBUG_LINES
@@ -26,7 +26,7 @@ int main(){
 
   struct NameLinkedList *sortedMeasurementsNames = NULL;
 
-  FILE *file = fopen("measurements_min.txt", "r");
+  FILE *file = fopen("measurements.txt", "r");
 
   while (1) {
     size_t bytesRead = fread(buffer, 1, BUFFER_SIZE, file);

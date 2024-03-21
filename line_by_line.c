@@ -29,7 +29,7 @@ int main(){
   printf("DEBUG: Created data structures\n");
   #endif
 
-  FILE* file = fopen("measurements_min.txt", "r");
+  FILE* file = fopen("measurements.txt", "r");
   #ifdef DEBUG
   printf("DEBUG: Opened file\n");
   #endif

@@ -13,7 +13,7 @@
 #define INITIAL_MEASUREMENTS 1500
 #define FILE_NAME "measurements.txt"
 
-#define NTHREADS 8
+#define NTHREADS 16
 
 void processChunk(void* params){
   // Params
