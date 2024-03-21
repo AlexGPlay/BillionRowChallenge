@@ -43,3 +43,9 @@ The Makefile of this project has instructions to compile and run both the single
 There's no need to build before using the time command as it requires the build step. Simply calling the time one will compile.
 
 So just `make time-(line-by-line/buffering/mmap)[-multi]`
+
+### Generating measurements
+
+The measurements are created by `create_measurements.c`. This file can be compiled and executed with `make generate-measurements`.
+
+Be careful as this process takes some time and generates a file of ~13GB.
